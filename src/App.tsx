@@ -11,6 +11,7 @@ import {
  SelectItem,
 } from "@/components/ui/select";
 import { Slider } from "@/components/ui/slider";
+import { ScrollArea, ScrollBar } from "./components/ui/scroll-area";
 
 function App() {
  return (
@@ -50,44 +51,44 @@ function App() {
       adicionar o conteúdo da transcrição do vídeo selecionado
      </p>
     </div>
+    <ScrollArea className="max-h-[80vh] pr-4">
+     <aside className="w-80 pr-2">
+      <form className="space-y-6">
+       <label
+        className="border flex rounded-md aspect-video cursor-pointer border-dashed text-sm flex-col gap-2 items-center justify-center text-muted-foreground hover:bg-primary/5"
+        htmlFor="video"
+       >
+        <FileVideo className="w-4 h-4" />
+        Selecione um vídeo
+       </label>
 
-    <aside className="w-80 overflow-y-auto max-h-[80vh] pr-2" >
-     <form className="space-y-6">
-      <label
-       className="border flex rounded-md aspect-video cursor-pointer border-dashed text-sm flex-col gap-2 items-center justify-center text-muted-foreground hover:bg-primary/5"
-       htmlFor="video"
-      >
-       <FileVideo className="w-4 h-4" />
-       Selecione um vídeo
-      </label>
+       <input type="file" id="video" accept="video/mp4" className="sr-only" />
 
-      <input type="file" id="video" accept="video/mp4" className="sr-only" />
+       <Separator />
+
+       <div className="space-y-2">
+        <Label htmlFor="transcription_video">Promp de transcrição</Label>
+        <Textarea
+         id="transcription_video"
+         className="h-20 leading-relaxed text-muted-foreground text-sm resize-none"
+         placeholder="Inclua palavras-chave mencionadas no vídeo separadas por vírgula (,)"
+        />
+       </div>
+
+       <Button type="submit" className="w-full">
+        Carregar vídeo
+        <Upload className="w-4 h-4 ml-2" />
+       </Button>
+      </form>
 
       <Separator />
 
+      <Separator />
       <div className="space-y-2">
-       <Label htmlFor="transcription_video">Promp de transcrição</Label>
-       <Textarea
-        id="transcription_video"
-        className="h-20 leading-relaxed text-muted-foreground text-sm resize-none"
-        placeholder="Inclua palavras-chave mencionadas no vídeo separadas por vírgula (,)"
-       />
-      </div>
-
-      <Button type="submit" className="w-full">
-       Carregar vídeo
-       <Upload className="w-4 h-4 ml-2" />
-      </Button>
-     </form>
-
-     <Separator/>
-
-     <Separator />
-     <div className="space-y-2">
        <Label>Prompt</Label>
-       <Select  defaultValue="title">
+       <Select defaultValue="title">
         <SelectTrigger>
-         <SelectValue placeholder="Selecione um prompt..."/>
+         <SelectValue placeholder="Selecione um prompt..." />
         </SelectTrigger>
         <SelectContent>
          <SelectItem value="title">Título do youtube</SelectItem>
@@ -96,44 +97,45 @@ function App() {
        </Select>
       </div>
 
-     <form className="space-y-6">
-      <div className="space-y-2">
-       <Label>Modelo</Label>
-       <Select  disabled defaultValue="gpt-3.5">
-        <SelectTrigger>
-         <SelectValue />
-        </SelectTrigger>
-        <SelectContent>
-         <SelectItem value="gpt-3.5">GPT 3.5-turbo 16k</SelectItem>
-        </SelectContent>
-       </Select>
-       <span className="block text-xs text-muted-foreground italic">Você podera costumizar está opção em breve</span>
-      </div>
+      <form className="space-y-6">
+       <div className="space-y-2">
+        <Label>Modelo</Label>
+        <Select disabled defaultValue="gpt-3.5">
+         <SelectTrigger>
+          <SelectValue />
+         </SelectTrigger>
+         <SelectContent>
+          <SelectItem value="gpt-3.5">GPT 3.5-turbo 16k</SelectItem>
+         </SelectContent>
+        </Select>
+        <span className="block text-xs text-muted-foreground italic">
+         Você podera costumizar está opção em breve
+        </span>
+       </div>
 
-      <Separator/>
+       <Separator />
 
-      <div className="space-y-4">
-       <Label>Temperatura</Label>
-       <Slider 
-        min={0}
-        max={1}
-        step={0.1}
-       />
-       <span className="block text-xs text-muted-foreground italic leading-relaxed">
-        Valores mais altos tendem a deixar o resultado mais criativo e com possíveis erros.
-       </span>
-      </div>
-      <Separator/>
+       <div className="space-y-4">
+        <Label>Temperatura</Label>
+        <Slider min={0} max={1} step={0.1} />
+        <span className="block text-xs text-muted-foreground italic leading-relaxed">
+         Valores mais altos tendem a deixar o resultado mais criativo e com
+         possíveis erros.
+        </span>
+       </div>
+       <Separator />
 
-      <Button type="submit" className="w-full">
+       <Button type="submit" className="w-full">
         Executar
-        <Wand2 className="w-4 h-4 ml-2"/>
-      </Button>
-     </form>
-    </aside>
+        <Wand2 className="w-4 h-4 ml-2" />
+       </Button>
+      </form>
+     </aside>
+     <ScrollBar orientation="vertical" />
+    </ScrollArea>
    </main>
   </div>
  );
 }
 
-export default App
+export default App;
